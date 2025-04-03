@@ -8,6 +8,18 @@ The goal is that this simulator will make it easier for the community to use the
 
 The simulator contains a very basic autopilot, for demonstration purposes. I have not spent much time on tuning this, so performance is not optimal in any sense (PRs are welcome).
 
+### Implementation Versions ###
+
+This repository contains two implementations of the Skywalker X8 UAV simulator:
+
+1. **MATLAB Implementation**: The original implementation in MATLAB
+   - Run the simulation with `simX8.m`
+
+2. **JAX Implementation**: A Python port using JAX for hardware acceleration and automatic differentiation
+   - Located in the `jax8/` directory
+   - See `docs/jax8.md` for detailed development plan and implementation details
+   - Run simulations with `jax8/examples/simple_simulation.py`
+
 ### Changes/notes ###
 - Please note that only the aerodynamic model comes from the paper:
   - The thrust model is adapted from the Aerosonde model found in Beard & McClain. Small Unmanned Aircraft
