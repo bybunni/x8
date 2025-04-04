@@ -1,6 +1,6 @@
 """Rigid body dynamics for the X8 UAV model."""
 
-from typing import Dict, Tuple, Callable
+from typing import Dict, Tuple, Callable, Any
 
 import jax
 import jax.numpy as jnp
@@ -79,7 +79,7 @@ def create_dynamics_function(
     params: Dict,
     control_function: Callable[[float, jnp.ndarray, Dict], jnp.ndarray],
     wind_function: Callable[[float, jnp.ndarray], jnp.ndarray] = None
-) -> Callable[[float, jnp.ndarray], jnp.ndarray]:
+) -> Callable[[float, jnp.ndarray, Any], jnp.ndarray]:
     """
     Create a dynamics function for use with ODE solvers.
     
@@ -98,13 +98,14 @@ def create_dynamics_function(
             return jnp.zeros(6)
         wind_function = zero_wind
     
-    def dynamics_function(t: float, state: jnp.ndarray) -> jnp.ndarray:
+    def dynamics_function(t: float, state: jnp.ndarray, args=None) -> jnp.ndarray:
         """
         Compute state derivatives for the X8 UAV.
         
         Args:
             t: Current time (seconds)
             state: State vector [pos, Theta, vel, rates]
+            args: Additional arguments (unused, included for compatibility with diffrax)
             
         Returns:
             State derivative vector [pos_dot, Theta_dot, vel_dot, rates_dot]

@@ -13,7 +13,7 @@ def smtrx(v: jnp.ndarray) -> jnp.ndarray:
     This is the matrix equivalent of the cross product operator.
     
     Args:
-        v: A 3-element vector [v1, v2, v3]
+        v: A 3-element vector [v1, v2, v3], can be 1D array or column vector (3,1)
         
     Returns:
         A 3x3 skew-symmetric matrix:
@@ -22,6 +22,9 @@ def smtrx(v: jnp.ndarray) -> jnp.ndarray:
         [-v2   v1   0]
     """
     v = jnp.asarray(v, dtype=jnp.float32)
+    # Flatten the array to handle both 1D arrays and column vectors
+    v = v.flatten()
+    
     return jnp.array([
         [0, -v[2], v[1]],
         [v[2], 0, -v[0]],
